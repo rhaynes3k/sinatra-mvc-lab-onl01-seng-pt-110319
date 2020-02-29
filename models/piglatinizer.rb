@@ -3,8 +3,6 @@ class PigLatinizer
 
   def initialize
       word
-    #binding.pry
-
   end
 
   def piglatinize(words)
@@ -17,21 +15,13 @@ class PigLatinizer
         words + 'way'
       else
         word + 'way'
-        #binding.pry
-
       end
-    # elsif vowels.include?(word[0]) && word.length <= 1
-    #   word[0].capitalize + 'way'
-
     elsif consonants.include?(word[0]) && consonants.include?(word[1])
       word[2..-1] + word[0..1] + 'ay'
     elsif consonants.include?(word[0])
       word[1..-1] + word[0] + 'ay'
-      #binding.pry
-
     else
       word.capitalize # return unchanged
-
     end
   end
 
