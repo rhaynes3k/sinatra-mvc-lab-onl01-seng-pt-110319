@@ -1,27 +1,29 @@
 class PigLatinizer
-  attr_accessor :word
+  attr_reader :words
 
-  def initialize
-      word
-  end
+  # def initialize(words)
+  #     @words = words
+  # end
 
   def piglatinize(words)
-    alpha = ('a'..'z').to_a
-    vowels = %w[a e i o u]
-    consonants = alpha - vowels
-    word = words.downcase
-    if vowels.include?(word[0])
-      if words[0] == words[0].capitalize
+
+    alpha_l = ('a'..'z').to_a
+    alpha_c = ('a'..'z').map{|l|l.capitalize}.to_a
+    alpha_all = alpha_l + alpha_c
+    vowels = %w[a e i o u A E I O U]
+    consonants = alpha_all - vowels
+    if vowels.include?(words[0])
         words + 'way'
-      else
-        word + 'way'
-      end
-    elsif consonants.include?(word[0]) && consonants.include?(word[1])
-      word[2..-1] + word[0..1] + 'ay'
-    elsif consonants.include?(word[0])
-      word[1..-1] + word[0] + 'ay'
     else
-      word.capitalize # return unchanged
+      back = []
+      words.split("").each do |l|
+        break if vowels.include?(l)
+        if consonants.include?(l)
+          back << l
+        end
+      end
+      fnt = words[back.count..-1]
+      new_word = fnt.split.concat(back).join() + 'ay'
     end
   end
 
